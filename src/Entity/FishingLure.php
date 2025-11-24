@@ -7,6 +7,7 @@ use App\Repository\FishingLureRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FishingLureRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ApiResource]
 class FishingLure
 {
@@ -73,10 +74,9 @@ class FishingLure
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    #[ORM\PrePersist]
+    public function setCreatedAt(): void
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
+        $this->createdAt = new \DateTimeImmutable();
     }
 }
