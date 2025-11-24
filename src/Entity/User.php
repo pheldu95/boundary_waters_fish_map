@@ -10,6 +10,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use App\State\UserPasswordHasher;
@@ -57,6 +59,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'json')]
     private array $roles = [];
+
+    /**
+     * @var Collection<int, CaughtFish>
+     */
+    #[ORM\OneToMany(targetEntity: CaughtFish::class, mappedBy: 'caughtBy', orphanRemoval: true)]
+    private Collection $caughtFish;
+
+    public function __construct()
+    {
+        $this->caughtFish = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -140,5 +153,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // Intentionally left blank
+    }
+
+    /**
+     * @return Collection<int, CaughtFish>
+     */
+    public function getCaughtFish(): Collection
+    {
+        return $this->caughtFish;
+    }
+
+    public function addCaughtFish(CaughtFish $caughtFish): static
+    {
+        if (!$this->caughtFish->contains($caughtFish)) {
+            $this->caughtFish->add($caughtFish);
+            $caughtFish->setCaughtBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaughtFish(CaughtFish $caughtFish): static
+    {
+        if ($this->caughtFish->removeElement($caughtFish)) {
+            // set the owning side to null (unless already changed)
+            if ($caughtFish->getCaughtBy() === $this) {
+                $caughtFish->setCaughtBy(null);
+            }
+        }
+
+        return $this;
     }
 }
