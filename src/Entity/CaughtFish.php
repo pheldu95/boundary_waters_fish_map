@@ -35,6 +35,9 @@ class CaughtFish
     #[ORM\ManyToOne(inversedBy: 'caughtFish')]
     private ?FishSpecies $fishSpecies = null;
 
+    #[ORM\ManyToOne(inversedBy: 'caughtFish')]
+    private ?FishingLure $fishingLure = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,6 +111,18 @@ class CaughtFish
     public function setFishSpecies(?FishSpecies $fishSpecies): static
     {
         $this->fishSpecies = $fishSpecies;
+
+        return $this;
+    }
+
+    public function getFishingLure(): ?FishingLure
+    {
+        return $this->fishingLure;
+    }
+
+    public function setFishingLure(?FishingLure $fishingLure): static
+    {
+        $this->fishingLure = $fishingLure;
 
         return $this;
     }

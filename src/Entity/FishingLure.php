@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\FishingLureRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FishingLureRepository::class)]
@@ -27,6 +29,17 @@ class FishingLure
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    /**
+     * @var Collection<int, CaughtFish>
+     */
+    #[ORM\OneToMany(targetEntity: CaughtFish::class, mappedBy: 'fishingLure')]
+    private Collection $caughtFish;
+
+    public function __construct()
+    {
+        $this->caughtFish = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -78,5 +91,35 @@ class FishingLure
     public function setCreatedAt(): void
     {
         $this->createdAt = new \DateTimeImmutable();
+    }
+
+    /**
+     * @return Collection<int, CaughtFish>
+     */
+    public function getCaughtFish(): Collection
+    {
+        return $this->caughtFish;
+    }
+
+    public function addCaughtFish(CaughtFish $caughtFish): static
+    {
+        if (!$this->caughtFish->contains($caughtFish)) {
+            $this->caughtFish->add($caughtFish);
+            $caughtFish->setFishingLure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaughtFish(CaughtFish $caughtFish): static
+    {
+        if ($this->caughtFish->removeElement($caughtFish)) {
+            // set the owning side to null (unless already changed)
+            if ($caughtFish->getFishingLure() === $this) {
+                $caughtFish->setFishingLure(null);
+            }
+        }
+
+        return $this;
     }
 }
