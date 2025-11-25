@@ -1,8 +1,9 @@
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+import type { FishSpecies } from './lib/types';
 
 function App() {
-  const [fishSpecies, setFishSpecies] = useState<string[]>([]);
+  const [fishSpecies, setFishSpecies] = useState<FishSpecies[]>([]);
 
   useEffect(() => {
     fetch('/api/fish_species')
