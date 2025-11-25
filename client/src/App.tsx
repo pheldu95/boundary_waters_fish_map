@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      <h1>Boundary Waters Fish Map</h1>
+      <h1 className="text-3xl font-bold text-blue-600 bg-yellow-200 p-4 rounded-lg">Boundary Waters Fish Map</h1>
       <ul>
         {fishSpecies.map((species) => (
           <li key={species.id}>{species.name}</li>
