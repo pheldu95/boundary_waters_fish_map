@@ -15,20 +15,19 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen bg-blue-900/95 text-center">
       <NavBar />
-      <h1 className="text-3xl font-bold text-blue-600 bg-yellow-200 p-4 rounded-lg">Boundary Waters Fish Map</h1>
       <ul>
         {fishSpecies.map((species) => (
           <li key={species.id}>
             {species.name}
             <div className='max-w-small'>
-              <DeleteButton/>
+              <DeleteButton />
             </div>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   )
 }
 
