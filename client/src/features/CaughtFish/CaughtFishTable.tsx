@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import TableHeader from "../../components/tables/TableHeader/TableHeader";
 import type { CaughtFish } from "../../lib/types";
 import TableData from "../../components/tables/TableData/TableData";
+import DeleteButton from "../../components/buttons/DeleteButton";
+import DefaultButton from "../../components/buttons/DefaultButton";
 
 export default function CaughtFishTable() {
-    const headerText = ["Species", "Length (inches)", "Date Caught", "Lure Used"];
+    const headerText = ["Species", "Length (inches)", "Date Caught", "Lure Used", "Actions"];
     const [caughtFish, setCaughtFish] = useState<CaughtFish[]>([]);
 
     useEffect(() => {
@@ -30,10 +32,16 @@ export default function CaughtFishTable() {
                             key={fish.id}
                             className="even:bg-gray-50 odd:bg-white border-b border-gray-200"
                         >
-                            <TableData text={fish.fishSpecies.name} />
-                            <TableData text={fish.length?.toString() ?? 'N/A'} />
-                            <TableData text={fish.caughtDate} />
-                            <TableData text={fish.fishingLure.name} />
+                            <TableData>{fish.fishSpecies.name}</TableData>
+                            <TableData>{fish.length?.toString() ?? 'N/A'}</TableData>
+                            <TableData>{fish.caughtDate}</TableData>
+                            <TableData>{fish.fishingLure.name}</TableData>
+                            <TableData>
+                                <div className="flex gap-4">
+                                    <DefaultButton text={'View Details'}/>
+                                    <DeleteButton />
+                                </div>
+                            </TableData>
                         </tr>
                     ))}
                 </tbody>
