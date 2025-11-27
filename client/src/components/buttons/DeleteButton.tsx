@@ -17,7 +17,7 @@ export default function DeleteButton<TArgs, TError = Error>({
             disabled={isDeleting}
             onClick={() => deleteMutation.mutate(itemId)}
         >
-            {isDeleting ? <div className="border-gray-300 h-10 w-10 animate-spin rounded-full border-8 border-t-blue-600" /> : "Delete"}
+            {isDeleting ? <div className="border-gray-300 h-10 w-10 animate-spin rounded-full border-8 border-t-pinkish" /> : "Delete"}
         </button>
     );
 }
