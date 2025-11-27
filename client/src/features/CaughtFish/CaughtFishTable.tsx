@@ -13,7 +13,7 @@ export default function CaughtFishTable() {
     if (!caughtFishes || isLoading) return <p>Loading...</p>;
 
     return (
-        <div className="border border-gray-300 shadow-sm rounded-lg overflow-hidden w-3/4 mx-auto mt-16">
+        <div className="border border-gray-300 shadow-sm rounded-lg overflow-hidden w-3/4 mx-auto">
             <table className="w-full text-sm leading-5">
                 <thead className="bg-neutral-secondary-soft bg-gray-100">
                     <tr className="border-b border-gray-200">

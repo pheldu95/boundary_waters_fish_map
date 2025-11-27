@@ -1,6 +1,6 @@
 export default function NavBar() {
     return (
-        <header className="backdrop-blur-sm bg-fishblue border-b-3 border-redish shadow-lg sticky top-0 z-50">
+        <header className="backdrop-blur-sm bg-fishblue border-b-3 border-redish shadow-lg sticky top-0 z-50 mb-4">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
                 <div className="flex items-center justify-between h-16">
                     <a href="{{ path('app_homepage') }}">
