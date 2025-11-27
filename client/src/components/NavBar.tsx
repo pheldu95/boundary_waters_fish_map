@@ -6,19 +6,19 @@ export default function NavBar() {
                     <a href="{{ path('app_homepage') }}">
                         <div className="flex items-center space-x-2">
                             {/* <img className="h-[42px]" src="{{ asset('images/canoe_logo.png') }}" alt="canoe logo"> */}
-                            <span className="text-xl font-bold text-redish bg-clip-text">
+                            <span className="text-xl font-bold text-yellowbone bg-clip-text hover:text-redish transition-colors duration-200">
                                 Boundary Waters Fish Map
                             </span>
                         </div>
                     </a>
                     <nav className="hidden sm:flex space-x-8">
-                        <a className="text-brownt hover:text-redish transition-colors duration-200 font-medium" href="{{ path('app_homepage') }}">
+                        <a className="text-yellowbone hover:text-redish transition-colors duration-200 font-medium" href="{{ path('app_homepage') }}">
                             Home
                         </a>
-                        <a className="text-brownt hover:text-redish transition-colors duration-200 font-medium" href="#">
+                        <a className="text-yellowbone hover:text-redish transition-colors duration-200 font-medium" href="#">
                             About
                         </a>
-                        <a className="text-brownt hover:text-redish transition-colors duration-200 font-medium" href="#">
+                        <a className="text-yellowbone hover:text-redish transition-colors duration-200 font-medium" href="#">
                             Contact
                         </a>
                     </nav>
@@ -32,13 +32,13 @@ export default function NavBar() {
 
                 <nav className="sm:hidden hidden pb-4" id="mobile-menu">
                     <div className="flex flex-col space-y-3">
-                        <a className="text-brownt hover:text-redish transition-colors duration-200 font-medium" href="{{ path('app_homepage') }}">
+                        <a className="text-yellowbone hover:text-redish transition-colors duration-200 font-medium" href="{{ path('app_homepage') }}">
                             Home
                         </a>
-                        <a className="text-brownt hover:text-redish transition-colors duration-200 font-medium" href="#">
+                        <a className="text-yellowbone hover:text-redish transition-colors duration-200 font-medium" href="#">
                             About
                         </a>
-                        <a className="text-brownt hover:text-redish transition-colors duration-200 font-medium" href="#">
+                        <a className="text-yellowbone hover:text-redish transition-colors duration-200 font-medium" href="#">
                             Contact
                         </a>
                     </div>
