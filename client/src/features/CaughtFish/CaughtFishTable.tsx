@@ -7,7 +7,7 @@ import { useCaughtFish } from "../../lib/hooks/useCaughtFish";
 export default function CaughtFishTable() {
     const headerText = ["Species", "Length (inches)", "Date Caught", "Lure Used", "Actions"];
 
-    const { caughtFishes, isLoading } = useCaughtFish();
+    const { caughtFishes, isLoading, deleteCaughtFish } = useCaughtFish();
 
     if (!caughtFishes || isLoading) return <p>Loading...</p>;
 
@@ -34,7 +34,7 @@ export default function CaughtFishTable() {
                             <TableData>
                                 <div className="flex gap-4">
                                     <DefaultButton text={'View Details'} />
-                                    <DeleteButton />
+                                    {/* <DeleteButton itemId={fish.id} deleteMutation={deleteCaughtFish}/> */}
                                 </div>
                             </TableData>
                         </tr>
