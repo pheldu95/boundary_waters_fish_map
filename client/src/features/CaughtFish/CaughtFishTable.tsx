@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import TableHeader from "../../components/tables/TableHeader/TableHeader";
-import type { CaughtFish } from "../../lib/types";
 import TableData from "../../components/tables/TableData/TableData";
 import DeleteButton from "../../components/buttons/DeleteButton";
 import DefaultButton from "../../components/buttons/DefaultButton";
