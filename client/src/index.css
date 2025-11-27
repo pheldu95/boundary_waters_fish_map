@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@theme {
+  --color-pinkish: rgb(230 45 114);
+  --color-browngreen: rgb(87 119 29);
+  --color-bone: rgb(244 244 184);
+  --color-foresty: rgb(49 142 19);
+}
