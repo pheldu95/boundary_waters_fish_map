@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Marker, Popup, useMapEvents } from 'react-leaflet'
 
 export default function LocationMarker() {
