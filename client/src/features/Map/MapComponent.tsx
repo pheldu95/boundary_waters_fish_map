@@ -4,7 +4,11 @@ import { DivIcon } from 'leaflet'
 import { useCampsite } from '../../lib/hooks/useCampsite';
 import LocationMarker from './LocationMarker';
 
-export default function MapComponent() {
+type Props = {
+    addingCaughtFish: boolean;
+}
+
+export default function MapComponent({ addingCaughtFish }: Props) {
     const { campsites, isPending } = useCampsite();
 
     if (!campsites || isPending) return <p>Loading...</p>;
@@ -61,7 +65,7 @@ export default function MapComponent() {
                     </Marker>
                 ))}
             </MarkerClusterGroup>
-            <LocationMarker />
+            {addingCaughtFish?<LocationMarker />:null}
         </MapContainer>
     )
 }
