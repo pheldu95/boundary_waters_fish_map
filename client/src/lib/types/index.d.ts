@@ -30,7 +30,7 @@ type User = {
     email: string
 }
 
-type HydraCollection<T> {
+type HydraCollection<T> = {
   '@context': string;
   '@id': string;
   '@type': string;
