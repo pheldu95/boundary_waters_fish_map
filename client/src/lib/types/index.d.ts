@@ -26,9 +26,16 @@ type FishingLure = {
 };
 
 type User = {
-    id: number
-    email: string
-}
+  id: number
+  email: string
+};
+
+type Campsite = {
+  id: number
+  url: string
+  latitude: number
+  longitude: number
+};
 
 type HydraCollection<T> = {
   '@context': string;
@@ -57,4 +64,4 @@ type HydraCollection<T> = {
   };
 }
 
-export type { FishSpecies, CaughtFish, FishingLure, User, HydraCollection };
+export type { FishSpecies, CaughtFish, FishingLure, User, HydraCollection, Campsite };
