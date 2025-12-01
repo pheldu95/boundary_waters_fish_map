@@ -1,6 +1,7 @@
 import type { Marker as LeafletMarker } from 'leaflet';
 import { useEffect, useRef, useState } from 'react'
 import { Marker, Popup, useMapEvents } from 'react-leaflet'
+import CaughtFishForm from '../CaughtFish/CaughtFishForm';
 
 export default function LocationMarker() {
     const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
@@ -34,17 +35,7 @@ export default function LocationMarker() {
             ref={markerRef}
         >
             <Popup>
-                <form className='flex flex-col gap-2'>
-                    <label>Date</label>
-                    <input type="text" />
-                    <label>Species </label>
-                    <input type="text" />
-                    <label>Lure</label>
-                    <input type="text" />
-                    <button type="submit" className="w-full text-gray-900 bg-foresty focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 max-w-sm text-center cursor-pointer">
-                        Submit
-                    </button>
-                </form>
+                <CaughtFishForm />
             </Popup>
         </Marker>
     )
