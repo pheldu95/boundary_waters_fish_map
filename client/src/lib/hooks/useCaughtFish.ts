@@ -6,9 +6,17 @@ export const useCaughtFish = (id?: number) => {
     const queryClient = useQueryClient();
 
     const { data: caughtFishes, isLoading } = useQuery<CaughtFish[]>({
-        queryKey: ['caughtFishes'],
+        queryKey: ['caughtFishes', 'paginated'],
         queryFn: async () => {
             const response = await axios.get<HydraCollection<CaughtFish>>('/api/caught_fishes');
+            return response.data.member;
+        },
+    });
+
+    const { data: allCaughtFishes } = useQuery<CaughtFish[]>({
+        queryKey: ['caughtFishes', 'all'],
+        queryFn: async () => {
+            const response = await axios.get<HydraCollection<CaughtFish>>('/api/caught_fishes?pagination=false');
             return response.data.member;
         },
     });
@@ -56,6 +64,7 @@ export const useCaughtFish = (id?: number) => {
 
     return {
         caughtFishes,
+        allCaughtFishes,
         isLoading,
         deleteCaughtFish,
         updateCaughtFish,

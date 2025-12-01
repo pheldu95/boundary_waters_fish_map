@@ -11,9 +11,9 @@ type Props = {
 
 export default function MapComponent({ addingCaughtFish }: Props) {
     const { campsites, isPending } = useCampsite();
-    const { caughtFishes } = useCaughtFish();
+    const { allCaughtFishes } = useCaughtFish();
 
-    if (!campsites || isPending || !caughtFishes) return <p>Loading...</p>;
+    if (!campsites || isPending || !allCaughtFishes) return <p>Loading...</p>;
 
     const campsiteIcon = new DivIcon({
         html: `
@@ -85,7 +85,7 @@ export default function MapComponent({ addingCaughtFish }: Props) {
                 showCoverageOnHover={false}
                 spiderfyOnMaxZoom={false}
             >
-                {caughtFishes.map((caughtFish) => (
+                {allCaughtFishes.map((caughtFish) => (
                     <Marker
                         key={caughtFish.id}
                         position={[caughtFish.latitude, caughtFish.longitude]}

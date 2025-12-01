@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['caughtFish:read']],
     denormalizationContext: ['groups' => ['caughtFish:write']],
+    paginationClientEnabled: true,
 )]
 #[ApiFilter(SearchFilter::class, properties: ['fishSpecies.name' => 'exact', 'fishingLure.name' => 'exact',])]
 #[ApiFilter(DateFilter::class, properties: ['caughtDate'])]
