@@ -3,6 +3,7 @@ import MarkerClusterGroup from 'react-leaflet-cluster'
 import { DivIcon } from 'leaflet'
 import { useCampsite } from '../../lib/hooks/useCampsite';
 import LocationMarker from './LocationMarker';
+import { useCaughtFish } from '../../lib/hooks/useCaughtFish';
 
 type Props = {
     addingCaughtFish: boolean;
@@ -10,13 +11,26 @@ type Props = {
 
 export default function MapComponent({ addingCaughtFish }: Props) {
     const { campsites, isPending } = useCampsite();
+    const { caughtFishes } = useCaughtFish();
 
-    if (!campsites || isPending) return <p>Loading...</p>;
+    if (!campsites || isPending || !caughtFishes) return <p>Loading...</p>;
 
     const campsiteIcon = new DivIcon({
         html: `
             <div class="campsite-marker">
                 <i class="fas fa-campground "></i>
+            </div>
+        `,
+        className: 'custom-div-icon',
+        iconSize: [30, 42],
+        iconAnchor: [15, 42],
+        popupAnchor: [0, -42]
+    });
+
+    const fishIcon = new DivIcon({
+        html: `
+            <div class="fish-marker">
+                <i class="fa-solid fa-fish"></i>
             </div>
         `,
         className: 'custom-div-icon',
@@ -65,6 +79,23 @@ export default function MapComponent({ addingCaughtFish }: Props) {
                     </Marker>
                 ))}
             </MarkerClusterGroup>
+            <MarkerClusterGroup
+                chunkedLoading
+                // disableClusteringAtZoom={1}
+                showCoverageOnHover={false}
+                spiderfyOnMaxZoom={false}
+            >
+                {caughtFishes.map((caughtFish) => (
+                    <Marker
+                        key={caughtFish.id}
+                        position={[parseFloat(caughtFish.latitude), parseFloat(caughtFish.longitude)]}
+                        icon={fishIcon}
+                    >
+                        <Popup>{caughtFish.fishSpecies.name}</Popup>
+                    </Marker>
+                ))}
+            </MarkerClusterGroup>
+
             {addingCaughtFish?<LocationMarker />:null}
         </MapContainer>
     )
