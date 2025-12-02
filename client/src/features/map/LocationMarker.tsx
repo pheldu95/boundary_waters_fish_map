@@ -34,8 +34,10 @@ export default function LocationMarker() {
             position={[position.latitude, position.longitude]}
             ref={markerRef}
         >
-            <Popup>
-                <CaughtFishForm latitude={position.latitude} longitude={position.longitude}/>
+            <Popup
+                closeOnClick={true}
+            >
+                <CaughtFishForm latitude={position.latitude} longitude={position.longitude} markerRef={markerRef}/>
             </Popup>
         </Marker>
     )

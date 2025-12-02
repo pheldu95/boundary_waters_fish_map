@@ -2,3 +2,11 @@
     cursor: crosshair !important;
     border: 5px rgb(49 142 19) solid;
 }
+
+.leaflet-popup-content-wrapper {
+    background-color: rgb(255 244 158);;
+    color: black;
+}
+.leaflet-popup-tip {
+    background-color: rgb(255 244 158);;
+}

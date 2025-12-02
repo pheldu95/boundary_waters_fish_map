@@ -7,9 +7,10 @@ import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 type Props = {
   latitude: number;
   longitude: number;
+  markerRef?: React.RefObject<any>;
 }
 
-export default function CaughtFishForm({ latitude, longitude }: Props) {
+export default function CaughtFishForm({ latitude, longitude, markerRef }: Props) {
   const { fishingLures } = useFishingLure();
   const { fishSpecies } = useFishSpecies();
   const { createCaughtFish } = useCaughtFish();
@@ -35,6 +36,8 @@ export default function CaughtFishForm({ latitude, longitude }: Props) {
     });
 
     createCaughtFish.mutate(data as unknown as CaughtFish);
+
+    markerRef?.current?.closePopup();
   }
 
   return (
@@ -43,7 +46,7 @@ export default function CaughtFishForm({ latitude, longitude }: Props) {
       <input name='caughtDate' type="date" />
 
       <label>Species </label>
-      <select defaultValue="" name="fishSpecies" value={selectedFishSpecies} onChange={handleSpeciesChange}>
+      <select name="fishSpecies" value={selectedFishSpecies} onChange={handleSpeciesChange}>
         <option value="" disabled hidden>
           Choose...
         </option>
@@ -65,7 +68,7 @@ export default function CaughtFishForm({ latitude, longitude }: Props) {
       <input type="hidden" name="latitude" value={latitude} />
       <input type="hidden" name="longitude" value={longitude} />
       <input type="hidden" name="caughtBy" value='/api/users/61' /> {/* Temporary until auth is implemented */}
-      <button type="submit" className="w-full text-gray-900 bg-foresty focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 max-w-sm text-center cursor-pointer">
+      <button type="submit" className="w-full text-yellowishbone bg-foresty focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 max-w-sm text-center cursor-pointer">
         Submit
       </button>
     </form>
