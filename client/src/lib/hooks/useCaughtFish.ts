@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { CaughtFish, HydraCollection } from "../types";
 import axios from "axios";
 
-export const useCaughtFish = (id?: number) => {
+export const useCaughtFish = () => {
     const queryClient = useQueryClient();
 
     const { data: caughtFishes, isLoading } = useQuery<CaughtFish[]>({

@@ -2,6 +2,7 @@ import React, { useState, type FormEvent } from 'react'
 import { useCaughtFish } from '../../lib/hooks/useCaughtFish'
 import type { CaughtFish } from '../../lib/types';
 import { useFishingLure } from '../../lib/hooks/useFishingLure';
+import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 
 type Props = {
   latitude: number;
@@ -9,11 +10,17 @@ type Props = {
 }
 
 export default function CaughtFishForm({ latitude, longitude }: Props) {
-  const { fishingLures, isPending } = useFishingLure();
+  const { fishingLures } = useFishingLure();
+  const { fishSpecies } = useFishSpecies();
   const { createCaughtFish } = useCaughtFish();
-  const [selectedFishingLure, setSelectedFishingLure] = useState();
+  const [selectedFishingLure, setSelectedFishingLure] = useState('');
+  const [selectedFishSpecies, setSelectedFishSpecies] = useState('');
 
-  const handleChange = (event) => {
+  const handleSpeciesChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedFishSpecies(event.target.value);
+  };
+
+  const handleLureChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedFishingLure(event.target.value);
   };
 
@@ -22,7 +29,7 @@ export default function CaughtFishForm({ latitude, longitude }: Props) {
     const formData = new FormData(event.currentTarget);
 
     //the name of each key come from the "name" property on each textfield
-    const data: {[key: string]: FormDataEntryValue} = {}
+    const data: { [key: string]: FormDataEntryValue } = {}
     formData.forEach((value, key) => {
       data[key] = value;
     });
@@ -36,11 +43,20 @@ export default function CaughtFishForm({ latitude, longitude }: Props) {
       <input name='caughtDate' type="date" />
 
       <label>Species </label>
-      <input name='fishSpecies' type="text" />
+      <select defaultValue="" name="fishSpecies" value={selectedFishSpecies} onChange={handleSpeciesChange}>
+        <option value="" disabled hidden>
+          Choose...
+        </option>
+        {fishSpecies?.map((species) => (
+          <option key={species.id} value={`/api/fish_species/${species.id}`}>{species.name}</option>
+        ))}
+      </select>
 
       <label>Lure</label>
-      <input name='fishingLure' type="text" />
-      <select name="fishingLure" value={selectedFishingLure} onChange={handleChange}>
+      <select defaultValue="" name="fishingLure" value={selectedFishingLure} onChange={handleLureChange}>
+        <option value="" disabled hidden>
+          Choose...
+        </option>
         {fishingLures?.map((lure) => (
           <option key={lure.id} value={`/api/fishing_lures/${lure.id}`}>{lure.name}</option>
         ))}

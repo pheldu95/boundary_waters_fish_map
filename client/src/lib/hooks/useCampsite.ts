@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Campsite, HydraCollection } from "../types";
 import axios from "axios";
 
-export const useCampsite = (id?: string) => {
+export const useCampsite = () => {
     // const queryClient = useQueryClient();
 
     const { data: campsites, isPending } = useQuery<Campsite[]>({
