@@ -7,7 +7,7 @@ export default function NavBar() {
                 <div className="flex items-center justify-between h-16">
                     <NavLink to="/">
                         <div className="flex items-center space-x-2">
-                            {/* <img className="h-[42px]" src="{{ asset('images/canoe_logo.png') }}" alt="canoe logo"> */}
+                            <img className="h-[80px]" src="/fishmaplogo.png" alt="fishmap logo" />
                             <span className="text-xl font-bold text-yellowishbone bg-clip-text hover:text-redish transition-colors duration-200">
                                 Boundary Waters Fish Map
                             </span>
