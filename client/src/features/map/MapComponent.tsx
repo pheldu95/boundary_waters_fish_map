@@ -16,17 +16,17 @@ export default function MapComponent({ addingCaughtFish }: Props) {
 
     if (!campsites || isPending || !allCaughtFishes) return <LoadingMapPlaceholder />;
 
-    const campsiteIcon = new DivIcon({
-        html: `
-            <div class="campsite-marker">
-                <i class="fas fa-campground "></i>
-            </div>
-        `,
-        className: 'custom-div-icon',
-        iconSize: [30, 42],
-        iconAnchor: [15, 42],
-        popupAnchor: [0, -42]
-    });
+    // const campsiteIcon = new DivIcon({
+    //     html: `
+    //         <div class="campsite-marker">
+    //             <i class="fas fa-campground "></i>
+    //         </div>
+    //     `,
+    //     className: 'custom-div-icon',
+    //     iconSize: [30, 42],
+    //     iconAnchor: [15, 42],
+    //     popupAnchor: [0, -42]
+    // });
 
     const fishIcon = new DivIcon({
         html: `

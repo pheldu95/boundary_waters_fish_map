@@ -32,7 +32,7 @@ export default function NavBar({ isOpen, setIsOpen }: Props) {
                     </div>
 
                     <NavLink to="/" className="flex items-center space-x-2">
-                        <img className="h-12" src="/fishmaplogo.png" alt="fishmap logo" />
+                        <img className="h-15" src="/fishmaplogo.png" alt="fishmap logo" />
                         <span className="text-xl font-bold text-yellowishbone hover:text-redish transition-colors duration-200 whitespace-nowrap">
                             Boundary Waters Fish Map
                         </span>
