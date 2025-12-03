@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import MapComponent from './MapComponent'
-import DefaultButton from '../../components/buttons/DefaultButton';
+import MapButton from '../../components/buttons/MapButton';
 
 export default function MapPage() {
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
@@ -8,16 +8,15 @@ export default function MapPage() {
         <div className='flex'>
 
             <div className='h-full w-[90%] bg-fishblue mx-auto my-4 shadow-[10px_10px_0px_0px_rgba(0,0,0,0.1)]'>
-                <h1>Map Page</h1>
                 <div className='flex w-[90%] mx-auto'>
-                    <div className='justify-items-start flex-none'>
+                    <div className='justify-items-start flex-none mt-4'>
                         {addingCaughtFish ?
-                            <DefaultButton onClickProps={() => setAddingCaughtFish(false)} text='Cancel' />
+                            <MapButton onClickProps={() => setAddingCaughtFish(false)} text='Cancel' />
                             :
-                            <DefaultButton onClickProps={() => setAddingCaughtFish(true)} text='Add a Caught Fish' />
+                            <MapButton onClickProps={() => setAddingCaughtFish(true)} text='Add a Caught Fish' />
                         }
-                        <DefaultButton text='Species'/>
-                        <DefaultButton text='Lure'/>
+                        <MapButton text='Species'/>
+                        <MapButton text='Lure'/>
                     </div>
                 </div>
                 <div className={addingCaughtFish ? 'map-container-add-fish' : ''}>
