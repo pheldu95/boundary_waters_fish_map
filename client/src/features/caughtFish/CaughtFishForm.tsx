@@ -4,8 +4,10 @@ import { useFishingLure } from '../../lib/hooks/useFishingLure';
 import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 import DefaultButton from '../../components/buttons/DefaultButton';
 import type { Marker } from 'leaflet';
-import { useForm, type FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useParams } from 'react-router';
+import { caughtFishSchema, CaughtFishSchema } from '../../lib/schemas/caughtFishSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type Props = {
   latitude: number;
@@ -14,7 +16,11 @@ type Props = {
 }
 
 export default function CaughtFishForm({ latitude, longitude, markerRef }: Props) {
-  const { register, reset, handleSubmit } = useForm()
+  const { register, reset, handleSubmit, formState: {errors} } = useForm<CaughtFishSchema>({
+    mode: 'onTouched',
+    resolver: zodResolver(caughtFishSchema)
+  });
+
   const {id} = useParams();
 
   const { fishingLures } = useFishingLure();
@@ -40,7 +46,7 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
     setAddNote(!addNote);
   }
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = (data: CaughtFishSchema) => {
 
     console.log(data);
     // markerRef?.current?.closePopup();
@@ -55,6 +61,8 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
           {...register('caughtDate')}
           type="date"
           className="w-full border border-[#e0e0e0] bg-white py-3 px-6 text-base font-small text-grey outline-none focus:border-foresty focus:shadow-md"
+          // error={!!errors.title}
+          // helperText={errors.title?.message}
         />
       </div>
 
