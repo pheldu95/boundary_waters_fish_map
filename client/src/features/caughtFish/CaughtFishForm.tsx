@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useParams } from 'react-router';
 import { caughtFishSchema, CaughtFishSchema } from '../../lib/schemas/caughtFishSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import DateInput from '../../components/form/DateInput';
 
 type Props = {
   latitude: number;
@@ -55,7 +56,8 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2 w-full items-center'>
       <div className="w-[90%]">
-        <label htmlFor='caughtDate' className="mb-1 block text-s font-small">Date</label>
+        <DateInput label="Caught Date" propertyName="caughtDate" register={register} required/>
+        {/* <label htmlFor='caughtDate' className="mb-1 block text-s font-small">Date</label>
         <input
           id='caughtDate'
           {...register('caughtDate')}
@@ -63,7 +65,7 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
           className="w-full border border-[#e0e0e0] bg-white py-3 px-6 text-base font-small text-grey outline-none focus:border-foresty focus:shadow-md"
           // error={!!errors.title}
           // helperText={errors.title?.message}
-        />
+        /> */}
       </div>
 
       <div className="w-[90%]">
