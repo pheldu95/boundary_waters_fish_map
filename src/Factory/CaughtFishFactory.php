@@ -36,6 +36,7 @@ final class CaughtFishFactory extends PersistentObjectFactory
             'caughtDate' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
             'latitude' => self::faker()->randomFloat(5, 47.0, 48.1),
             'longitude' => self::faker()->randomFloat(5, -92.9, -91.0),
+            'note' => self::faker()->paragraph()
         ];
     }
 

@@ -18,6 +18,7 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
   const { createCaughtFish } = useCaughtFish();
   const [selectedFishingLure, setSelectedFishingLure] = useState('');
   const [selectedFishSpecies, setSelectedFishSpecies] = useState('');
+  const [addNote, setAddNote] = useState(false);
 
   const handleSpeciesChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedFishSpecies(event.target.value);
@@ -26,6 +27,10 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
   const handleLureChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedFishingLure(event.target.value);
   };
+
+  const toggleAddNote = () => {
+    setAddNote(!addNote);
+  }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,11 +49,11 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
-      <label>Date</label>
-      <input name='caughtDate' type="date" />
+      <label htmlFor='caughtDate'>Date</label>
+      <input id='caughtDate' name='caughtDate' type="date" />
 
-      <label>Species </label>
-      <select name="fishSpecies" value={selectedFishSpecies} onChange={handleSpeciesChange}>
+      <label htmlFor='fishSpecies'>Species </label>
+      <select id='fishSpecies' name="fishSpecies" value={selectedFishSpecies} onChange={handleSpeciesChange}>
         <option value="" disabled hidden>
           Choose...
         </option>
@@ -57,8 +62,8 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
         ))}
       </select>
 
-      <label>Lure</label>
-      <select defaultValue="" name="fishingLure" value={selectedFishingLure} onChange={handleLureChange}>
+      <label htmlFor='fishingLure'>Lure</label>
+      <select id='fishingLure' defaultValue="" name="fishingLure" value={selectedFishingLure} onChange={handleLureChange}>
         <option value="" disabled hidden>
           Choose...
         </option>
@@ -67,10 +72,14 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
         ))}
       </select>
 
+      <button onClick={toggleAddNote} type='button'>{addNote ? 'Cancel' : 'Add Note'}</button>
+      <label htmlFor='note'>Note</label>
+      <textarea id='note' name='note' />
+
       <input type="hidden" name="latitude" value={latitude} />
       <input type="hidden" name="longitude" value={longitude} />
-      <input type="hidden" name="caughtBy" value='/api/users/61' /> {/* Temporary until auth is implemented */}
-      
+      <input type="hidden" name="caughtBy" value='/api/users/67' /> {/* Temporary until auth is implemented */}
+
       <DefaultButton text={'Submit'} type='submit' />
     </form>
   )
