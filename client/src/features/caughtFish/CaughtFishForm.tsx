@@ -61,29 +61,29 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2 w-full items-center'>
-      <div className="w-[90%]">
-        <DateInput<CaughtFishSchema> label="Caught Date" propertyName="caughtDate" register={register} required />
-      </div>
-
-      <div className="w-[90%]">
-        <SelectInput<CaughtFishSchema>
-          label="Fish Species"
-          propertyName="fishSpecies"
-          register={register}
-          options={fishSpeciesOptions}
-          required={true}
-        />
-      </div>
-
-      <div className="w-[90%]">
-        <SelectInput<CaughtFishSchema>
-          label="Fishing Lure"
-          propertyName="fishingLure"
-          register={register}
-          options={fishingLureOptions}
-          required={true}
-        />
-      </div>
+      <DateInput<CaughtFishSchema>
+        label="Caught Date"
+        propertyName="caughtDate"
+        register={register}
+        required
+        className='w-[90%]'
+      />
+      <SelectInput<CaughtFishSchema>
+        label="Fish Species"
+        propertyName="fishSpecies"
+        register={register}
+        options={fishSpeciesOptions}
+        required={true}
+        className='w-[90%]'
+      />
+      <SelectInput<CaughtFishSchema>
+        label="Fishing Lure"
+        propertyName="fishingLure"
+        register={register}
+        options={fishingLureOptions}
+        required={true}
+        className='w-[90%]'
+      />
 
       <div className="w-[90%]">
         <label htmlFor='length' className="mb-1 block text-s font-small">Length (Inches)</label>
