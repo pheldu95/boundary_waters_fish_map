@@ -4,11 +4,12 @@ import type { CaughtFish } from '../../lib/types';
 import { useFishingLure } from '../../lib/hooks/useFishingLure';
 import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 import DefaultButton from '../../components/buttons/DefaultButton';
+import type { Marker } from 'leaflet';
 
 type Props = {
   latitude: number;
   longitude: number;
-  markerRef?: React.RefObject<any>;
+  markerRef?: React.RefObject<Marker | null>;
 }
 
 export default function CaughtFishForm({ latitude, longitude, markerRef }: Props) {
