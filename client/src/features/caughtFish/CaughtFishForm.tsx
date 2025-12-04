@@ -34,7 +34,12 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
     if (caughtFish) reset({
       caughtDate: caughtFish.caughtDate,
       fishSpecies: caughtFish.fishSpecies.id.toString(),
-      fishingLure: caughtFish.fishingLure.id.toString()
+      fishingLure: caughtFish.fishingLure.id.toString(),
+      length: caughtFish.length,
+      note: caughtFish.note,
+      latitude: caughtFish.latitude,
+      longitude: caughtFish.longitude,
+      caughtBy: caughtFish.caughtBy
     }); //reset form with existing caught fish data
   }, [caughtFish, reset]);
 
@@ -55,38 +60,42 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
     setAddNote(!addNote);
   }
 
-  const onSubmit = (data: CaughtFishSchema) => {
+  const onSubmit = async (data: CaughtFishSchema) => {
+    console.log(data);    
 
-    console.log(data);
-    // markerRef?.current?.closePopup();
+    markerRef?.current?.closePopup();
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2 w-full items-center'>
       <DateInput<CaughtFishSchema>
-        label="Caught Date"
+        label="Caught Date *"
         propertyName="caughtDate"
         register={register}
         required={true}
         className='w-[90%]'
       />
-      <SelectInput<CaughtFishSchema>
-        label="Fish Species"
-        propertyName="fishSpecies"
-        register={register}
-        options={fishSpeciesOptions}
-        required={true}
-        className='w-[90%]'
-      />
-      <SelectInput<CaughtFishSchema>
-        label="Fishing Lure"
-        propertyName="fishingLure"
-        register={register}
-        options={fishingLureOptions}
-        required={true}
-        className='w-[90%]'
-      />
-      <DefaultInput 
+
+      <div className='w-[90%] flex'>
+        <SelectInput<CaughtFishSchema>
+          label="Fish Species *"
+          propertyName="fishSpecies"
+          register={register}
+          options={fishSpeciesOptions}
+          required={true}
+          className='flex-1 pr-2'
+        />
+        <SelectInput<CaughtFishSchema>
+          label="Fishing Lure"
+          propertyName="fishingLure"
+          register={register}
+          options={fishingLureOptions}
+          required={false}
+          className='flex-1 pl-2'
+        />
+      </div>
+
+      <DefaultInput
         label='Length'
         propertyName='length'
         register={register}

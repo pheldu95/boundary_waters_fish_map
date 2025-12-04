@@ -21,7 +21,7 @@ export default function SelectInput<TFieldValues extends FieldValues>({
   register,
   options,
   required = false,
-  placeholder = "Select an option",
+  placeholder = "Choose...",
   className = "",
 }: SelectProps<TFieldValues>) {
   return (

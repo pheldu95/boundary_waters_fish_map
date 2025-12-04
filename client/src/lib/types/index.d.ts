@@ -14,6 +14,7 @@ type CaughtFish = {
   fishSpecies: FishSpecies
   fishingLure: FishingLure
   length: number | null
+  note: string | undefined
 };
 
 type FishingLure = {
