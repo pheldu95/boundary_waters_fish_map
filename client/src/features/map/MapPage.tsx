@@ -6,9 +6,8 @@ export default function MapPage() {
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
     return (
         <div className='h-full w-[90%] bg-fishblue mx-auto my-4 shadow-[10px_10px_0px_0px_rgba(0,0,0,0.1)] pb-8'>
-            <div className='flex w-[90%] mx-auto justify-between'>
-
-                <div className='flex mt-4'>
+            <div className='flex flex-col lg:flex-row w-[90%] mx-auto justify-between'>
+                <div className='flex flex-wrap mt-4'>
                     {addingCaughtFish ?
                         <MapButton onClickProps={() => setAddingCaughtFish(false)} text='Cancel' />
                         :
@@ -21,7 +20,7 @@ export default function MapPage() {
                     </div>
                 </div>
 
-                <div className='flex mt-4'>
+                <div className='flex flex-wrap mt-4'>
                     <div className="flex items-center p-4 text-yellowishbone">
                         <p className="mr-2">Filters</p>
                         <i className="fa-solid fa-arrow-right-long fa-lg"></i>
