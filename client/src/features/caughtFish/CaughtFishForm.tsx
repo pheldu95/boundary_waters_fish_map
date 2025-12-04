@@ -10,6 +10,8 @@ import { caughtFishSchema, CaughtFishSchema } from '../../lib/schemas/caughtFish
 import { zodResolver } from '@hookform/resolvers/zod';
 import DateInput from '../../components/form/DateInput';
 import SelectInput from '../../components/form/SelectInput';
+import TextAreaInput from '../../components/form/TexaAreaInput';
+import DefaultInput from '../../components/form/DefaultInput';
 
 type Props = {
   latitude: number;
@@ -65,7 +67,7 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
         label="Caught Date"
         propertyName="caughtDate"
         register={register}
-        required
+        required={true}
         className='w-[90%]'
       />
       <SelectInput<CaughtFishSchema>
@@ -84,32 +86,27 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
         required={true}
         className='w-[90%]'
       />
-
-      <div className="w-[90%]">
-        <label htmlFor='length' className="mb-1 block text-s font-small">Length (Inches)</label>
-        <input
-          id='length'
-          {...register('length')}
-          type="number"
-          className="w-full border border-[#e0e0e0] bg-white py-3 px-6 text-base font-small text-grey outline-none focus:border-foresty focus:shadow-md"
-        />
-      </div>
+      <DefaultInput 
+        label='Length'
+        propertyName='length'
+        register={register}
+        required={false}
+        className='w-[90%]'
+        type='number'
+      />
 
       <button className='cursor-pointer w-24 hover:text-forestyhover transition-colors' onClick={toggleAddNote} type='button'>{addNote ? 'Cancel' : 'Add Note'}</button>
+      <TextAreaInput
+        label="Note"
+        propertyName="note"
+        register={register}
+        required={false}
+        className={`w-full overflow-hidden transition-all duration-300 ease-in-out ${addNote ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
+      />
 
-      <div className={`w-full overflow-hidden transition-all duration-300 ease-in-out ${addNote ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-        }`}>
-        <label htmlFor='note' className="mb-1 block text-s font-small">Note</label>
-        <textarea
-          id='note'
-          {...register('note')}
-          className='w-full border border-[#e0e0e0] bg-white py-1 px-6 text-base font-small text-grey outline-none focus:border-foresty focus:shadow-md'
-        />
-      </div>
-
-      <input type="hidden" {...register('latitude')} value={latitude} />
-      <input type="hidden" {...register("longitude")} value={longitude} />
-      <input type="hidden" {...register('caughtBy')} value='/api/users/67' /> {/* Temporary until auth is implemented */}
+      <input type="hidden" {...register('latitude', { required: true })} value={latitude} />
+      <input type="hidden" {...register('longitude', { required: true })} value={longitude} />
+      <input type="hidden" {...register('caughtBy', { required: true })} value='/api/users/67' /> {/* Temporary until auth is implemented */}
 
       <DefaultButton text={'Submit'} type='submit' />
     </form>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { type UseFormRegister, type FieldValues, type Path } from 'react-hook-form';
 
 type SelectOption = {
