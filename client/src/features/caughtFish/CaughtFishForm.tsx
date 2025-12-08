@@ -48,11 +48,11 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
   }
   //options to use for our select component
   const fishSpeciesOptions = fishSpecies.map(species => ({
-    value: species.id.toString(),
+    value: '/api/fish_species/' + species.id.toString(),
     label: species.name
   }));
   const fishingLureOptions = fishingLures.map(lure => ({
-    value: lure.id.toString(),
+    value: '/api/fishing_lures/' + lure.id.toString(),
     label: lure.name
   }));
 
@@ -61,7 +61,8 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
   }
 
   const onSubmit = async (data: CaughtFishSchema) => {
-    console.log(data);    
+    
+    createCaughtFish.mutate(data); //temporary. need to get it working with the caughtfish dto
 
     markerRef?.current?.closePopup();
   }

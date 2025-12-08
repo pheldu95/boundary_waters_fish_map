@@ -2,7 +2,9 @@
 namespace App\Dto;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\ObjectMapper\Attribute\Map;
 
+#[Map]
 final class CaughtFishDto
 {
     #[Assert\NotBlank]

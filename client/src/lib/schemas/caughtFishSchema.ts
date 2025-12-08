@@ -18,8 +18,8 @@ export const caughtFishSchema = z.object({
 
     note: z.string().optional(),
 
-    latitude: z.coerce.number(),
-    longitude: z.coerce.number(),
+    latitude: z.string(),
+    longitude: z.string(),
 
     caughtBy: z.string().min(1),
 });
