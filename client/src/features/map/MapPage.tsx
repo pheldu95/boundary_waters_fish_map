@@ -27,9 +27,9 @@ export default function MapPage() {
     return (
         <DraggableWindow
             key={1}
-            title={'test'}
-            initialX={200}
-            initialY={150}
+            title={'Fish Map'}
+            initialX={120}
+            initialY={80}
             width={1500}
             onClose={() => console.log('close')}
         >

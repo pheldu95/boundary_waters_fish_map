@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, type ReactNode } from 'react';
+import { useNavigate } from 'react-router';
 
 export interface Position {
   x: number;
@@ -25,7 +26,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
   title = "Draggable Window",
   initialX = 100,
   initialY = 100,
-  onClose,
   className = "",
   width,
   minWidth = 300,
@@ -38,6 +38,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStart, setDragStart] = useState<Position>({ x: 0, y: 0 });
   const windowRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent): void => {
@@ -100,13 +102,13 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
   };
 
   const handleClose = (): void => {
-    onClose?.();
+    navigate(-1); //go back to previous page
   };
 
   return (
     <div
       ref={windowRef}
-      className={`fixed select-none ${className} shadow-2xl`}
+      className={`fixed select-none ${className} shadow-2xl rounded-lg`}
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
