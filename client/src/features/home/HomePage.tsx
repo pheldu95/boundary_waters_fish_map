@@ -11,7 +11,7 @@ export default function HomePage() {
             Explore fishing spots, log your catches, and share your adventures in the beautiful Boundary Waters Canoe Area Wilderness.
         </p>
         <Link to="/map">
-            <DefaultButton text="Go to Map" />    
+            <DefaultButton text="Open Map" />    
         </Link>
     </div>
   )

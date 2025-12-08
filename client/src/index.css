@@ -13,6 +13,8 @@
   --color-yellowishbone: rgb(255 244 158);
   --color-brownt: rgb(195 165 91);
   --color-fishblue: rgb(65 119 119);
+  --color-fishbluelight: rgb(77, 140, 140);
+  --color-fishbluedarker: rgb(54, 98, 98);
 
   --font-display: "Archivo Black", "sans-serif";
 }
