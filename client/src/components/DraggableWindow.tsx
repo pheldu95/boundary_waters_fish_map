@@ -130,7 +130,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
             {/* Window Controls */}
             <button
               onClick={handleClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-200 rounded"
+              className="text-yellowishbone hover:text-redish transition-colors p-1 hover:bg-white/10 rounded cursor-pointer"
               type="button"
               aria-label="Close window"
             >
