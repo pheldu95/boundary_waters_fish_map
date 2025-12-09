@@ -5,6 +5,7 @@ import { useCampsite } from '../../lib/hooks/useCampsite';
 import LocationMarker from './LocationMarker';
 import { useCaughtFish } from '../../lib/hooks/useCaughtFish';
 import LoadingMapPlaceholder from '../../components/placeholders/LoadingMapPlaceholder';
+import CaughtFishPopup from '../caughtFish/CaughtFishPopup';
 
 type Props = {
     addingCaughtFish: boolean;
@@ -54,17 +55,6 @@ export default function MapComponent({ addingCaughtFish }: Props) {
                 maxNativeZoom={17} // This tile layer goes up to zoom level 16
                 maxZoom={20} // Allow zooming in further. Makes map blurry though
             />
-            {/* <TileLayer
-                attribution='Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
-                url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
-                maxNativeZoom={16} // This tile layer goes up to zoom level 16
-                maxZoom={20} // Allow zooming in further. Makes map blurry though
-            /> */}
-            {/* <Marker position={[48.0, -91.0]}>
-                <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-            </Marker> */}
             {/* <MarkerClusterGroup
                 chunkedLoading
                 // disableClusteringAtZoom={1}
@@ -88,30 +78,7 @@ export default function MapComponent({ addingCaughtFish }: Props) {
                 spiderfyOnMaxZoom={false}
             >
                 {allCaughtFishes.map((caughtFish) => (
-                    <Marker
-                        key={caughtFish.id}
-                        position={[caughtFish.latitude, caughtFish.longitude]}
-                        icon={fishIcon}
-                    >
-                        <Popup>
-                            <div className="flex">
-                                <div className="flex-1">
-                                    {caughtFish.fishSpecies.name}
-                                </div>
-                                <div className="flex-1">
-                                    {caughtFish.caughtDate}
-                                </div>
-                            </div>
-
-                            <div>
-                                {caughtFish.fishingLure ? caughtFish.fishingLure.name : ''}
-                            </div>
-
-                            <div>
-                                {caughtFish.length} inches
-                            </div>
-                        </Popup>
-                    </Marker>
+                    <CaughtFishPopup caughtFish={caughtFish} icon={fishIcon}/>
                 ))}
             </MarkerClusterGroup>
 
