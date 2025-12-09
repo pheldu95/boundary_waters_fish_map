@@ -1,6 +1,5 @@
 import { MapContainer, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-cluster'
-import { useCampsite } from '../../lib/hooks/useCampsite';
 import LocationMarker from './LocationMarker';
 import { useCaughtFish } from '../../lib/hooks/useCaughtFish';
 import LoadingMapPlaceholder from '../../components/placeholders/LoadingMapPlaceholder';
@@ -13,11 +12,10 @@ type Props = {
 }
 
 export default function MapComponent({ addingCaughtFish, filters }: Props) {
-    const { campsites, isPending } = useCampsite();
     
     const { allCaughtFishes } = useCaughtFish(undefined, filters);
 
-    if (!campsites || isPending || !allCaughtFishes) return <LoadingMapPlaceholder />;
+    if (!allCaughtFishes) return <LoadingMapPlaceholder />;
 
     return (
         <MapContainer

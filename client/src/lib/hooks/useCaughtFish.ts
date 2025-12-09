@@ -4,7 +4,7 @@ import axios from "axios";
 import type { CaughtFishFilters, CaughtFishRead, CaughtFishWrite } from "../types/caughtFishTypes";
 
 export const useCaughtFish = (
-    id?: string,
+    id?: string, //TO DO: make separate hooks. useCaughtFish and useCaughtFishes
     filters?: CaughtFishFilters
 ) => {
     const queryClient = useQueryClient();
@@ -25,7 +25,7 @@ export const useCaughtFish = (
             };
 
             if (filters?.fishSpeciesId) {
-                params['fishSpecies.id'] = filters.fishSpeciesId.toString();
+                params['fishSpecies.id'] = filters.fishSpeciesId;
             }
 
             const queryString = new URLSearchParams(params).toString();

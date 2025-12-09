@@ -5,18 +5,23 @@ import MapButtonBottom from '../../components/buttons/MapButtonBottom';
 // import { TileLayer } from 'react-leaflet';
 import DraggableWindow from '../../components/DraggableWindow';
 import type { CaughtFishFilters } from '../../lib/types/caughtFishTypes';
-
+import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 
 export default function MapPage() {
+    const { fishSpecies } = useFishSpecies();
+    const [selectFishSpecies, setSelectFishSpecies] = useState(false);
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
     const [filters, setFilters] = useState<CaughtFishFilters>({
         fishSpeciesId: undefined,
     });
-    const handleSpeciesChange = (speciesId: number | undefined) => {
+
+    const handleSpeciesChange = (speciesId: string | undefined) => {
         setFilters(prev => ({
             ...prev,
             fishSpeciesId: speciesId
         }));
+
+        setSelectFishSpecies(false);
     };
 
     // const tileLayerOptions = [
@@ -49,7 +54,7 @@ export default function MapPage() {
 
                     <div className='flex mt-4'>
                         {addingCaughtFish ?
-                            <MapButton onClickProps={() => setAddingCaughtFish(false)} text='Cancel' color={'bg-redish'} hoverColor={'bg-redishhover'}/>
+                            <MapButton onClickProps={() => setAddingCaughtFish(false)} text='Cancel' color={'bg-redish'} hoverColor={'bg-redishhover'} />
                             :
                             <MapButton onClickProps={() => setAddingCaughtFish(true)} text='Add a Caught Fish' />
                         }
@@ -66,7 +71,20 @@ export default function MapPage() {
                             <i className="fa-solid fa-arrow-right-long fa-lg"></i>
                         </div>
 
-                        <MapButton text='Species' onClickProps={() => handleSpeciesChange(121)}/>
+                        <MapButton text='Species' onClickProps={() => setSelectFishSpecies(!selectFishSpecies)} />
+                        {selectFishSpecies && fishSpecies &&
+                            <select
+                                onChange={(e) => handleSpeciesChange(e.target.value)}
+                                value={filters.fishSpeciesId || ''}
+                            >
+                                <option value="">All Species</option>
+                                {fishSpecies.map(species => (
+                                    <option key={species.id} value={species.id}>
+                                        {species.name}
+                                    </option>
+                                ))}
+                            </select>
+                        }
                         <MapButton text='Lure' />
                         <MapButton text='Length' />
                     </div>

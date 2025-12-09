@@ -24,7 +24,7 @@ type CaughtFishWrite = {
 };
 
 type CaughtFishFilters = {
-  fishSpeciesId?: number;
+  fishSpeciesId?: string;
 }
 
 export type { CaughtFishRead, CaughtFishWrite, CaughtFishFilters };
