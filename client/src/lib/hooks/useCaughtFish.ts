@@ -1,22 +1,23 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { CaughtFish, HydraCollection } from "../types";
+import type { HydraCollection } from "../types";
 import axios from "axios";
+import type { CaughtFishRead, CaughtFishWrite } from "../types/caughtFishTypes";
 
 export const useCaughtFish = (id?: string) => {
     const queryClient = useQueryClient();
 
-    const { data: caughtFishes, isLoading } = useQuery<CaughtFish[]>({
+    const { data: caughtFishes, isLoading } = useQuery<CaughtFishRead[]>({
         queryKey: ['caughtFishes', 'paginated'],
         queryFn: async () => {
-            const response = await axios.get<HydraCollection<CaughtFish>>('/api/caught_fishes');
+            const response = await axios.get<HydraCollection<CaughtFishRead>>('/api/caught_fishes');
             return response.data.member;
         },
     });
 
-    const { data: allCaughtFishes } = useQuery<CaughtFish[]>({
+    const { data: allCaughtFishes } = useQuery<CaughtFishRead[]>({
         queryKey: ['caughtFishes', 'all'],
         queryFn: async () => {
-            const response = await axios.get<HydraCollection<CaughtFish>>('/api/caught_fishes?pagination=false');
+            const response = await axios.get<HydraCollection<CaughtFishRead>>('/api/caught_fishes?pagination=false');
             return response.data.member;
         },
     });
@@ -24,7 +25,7 @@ export const useCaughtFish = (id?: string) => {
     const { data: caughtFish, isLoading: isLoadingcaughtFish } = useQuery({
         queryKey: ['caughtFishes', id],
         queryFn: async () => {
-            const response = await axios.get<CaughtFish>(`/api/caughtFishes/${id}`)
+            const response = await axios.get<CaughtFishRead>(`/api/caughtFishes/${id}`)
             return response.data;
         },
         enabled: !!id //this means the function will only execute if we have an id
@@ -42,7 +43,7 @@ export const useCaughtFish = (id?: string) => {
     });
 
     const updateCaughtFish = useMutation({
-        mutationFn: async (caughtFish: CaughtFish) => {
+        mutationFn: async (caughtFish: CaughtFishWrite) => {
             await axios.patch(`/api/caught_fishes/${caughtFish.id}`, caughtFish, {
                 headers: {
                     'Content-Type': 'application/ld+json'
@@ -57,7 +58,7 @@ export const useCaughtFish = (id?: string) => {
     });
 
     const createCaughtFish = useMutation({
-        mutationFn: async (caughtFish: CaughtFish) => {
+        mutationFn: async (caughtFish: CaughtFishWrite) => {
             await axios.post(`/api/caught_fishes`, caughtFish, {
                 headers: {
                     'Content-Type': 'application/ld+json'

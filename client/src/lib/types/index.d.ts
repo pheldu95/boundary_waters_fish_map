@@ -5,18 +5,6 @@ type FishSpecies = {
   caughtFish: string[]
 };
 
-type CaughtFish = {
-  id?: number
-  latitude: float
-  longitude: float
-  caughtDate: string
-  caughtBy: string
-  fishSpecies: FishSpecies
-  fishingLure: FishingLure
-  length: number | null
-  note: string | undefined
-};
-
 type FishingLure = {
   id: number
   name: string
@@ -65,4 +53,4 @@ type HydraCollection<T> = {
   };
 }
 
-export type { FishSpecies, CaughtFish, FishingLure, User, HydraCollection, Campsite };
+export type { FishSpecies, FishingLure, User, HydraCollection, Campsite };

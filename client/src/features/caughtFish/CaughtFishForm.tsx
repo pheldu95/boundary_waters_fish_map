@@ -61,8 +61,11 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
   }
 
   const onSubmit = async (data: CaughtFishSchema) => {
-    
-    createCaughtFish.mutate(data); //temporary. need to get it working with the caughtfish dto
+    try {
+      createCaughtFish.mutate(data);
+    } catch (error) {
+      console.log(error);
+    }
 
     markerRef?.current?.closePopup();
   }
