@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useCaughtFish } from '../../lib/hooks/useCaughtFish'
+import { useCaughtFish } from '../../lib/hooks/caughtFish/useCaughtFish'
 import { useFishingLure } from '../../lib/hooks/useFishingLure';
 import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 import DefaultButton from '../../components/buttons/DefaultButton';

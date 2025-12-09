@@ -1,6 +1,6 @@
 import TableHeader from "../../components/tables/TableHeader/TableHeader";
 import TableData from "../../components/tables/TableData/TableData";
-import { useCaughtFish } from "../../lib/hooks/useCaughtFish";
+import { useCaughtFish } from "../../lib/hooks/caughtFish/useCaughtFish";
 import TrashCanButton from "../../components/buttons/TrashCanButton";
 import ViewDetailsButton from "../../components/buttons/ViewDetailsButton";
 import LoadingTablePlaceholder from "../../components/placeholders/LoadingTablePlaceholder";
