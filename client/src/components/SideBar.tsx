@@ -41,7 +41,7 @@ export default function SideBar({ isOpen, setIsOpen }: Props) {
                     </NavLink>
                     <NavLink
                         className="text-yellowishbone hover:text-redish transition-colors duration-200 font-medium"
-                        to="/"
+                        to="/fishingLures"
                         onClick={() => setIsOpen(false)}
                     >
                         My Fishing Lures
