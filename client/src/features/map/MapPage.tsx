@@ -1,34 +1,34 @@
-import { useState, type ReactNode } from 'react'
+import { useState } from 'react'
 import MapComponent from './MapComponent'
 import MapButton from '../../components/buttons/MapButton';
 import MapButtonBottom from '../../components/buttons/MapButtonBottom';
-import { TileLayer } from 'react-leaflet';
+// import { TileLayer } from 'react-leaflet';
 import DraggableWindow from '../../components/DraggableWindow';
 
 
 export default function MapPage() {
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
 
-    const tileLayerOptions = [
-        <TileLayer
-            attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
-            url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-            maxNativeZoom={17} // This tile layer goes up to zoom level 16
-            maxZoom={20} // Allow zooming in further. Makes map blurry though
-        />,
-        <TileLayer
-            attribution='Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
-            url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
-            maxNativeZoom={16} // This tile layer goes up to zoom level 16
-            maxZoom={20} // Allow zooming in further. Makes map blurry though
-        />
-    ];
+    // const tileLayerOptions = [
+    //     <TileLayer
+    //         attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
+    //         url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+    //         maxNativeZoom={17} // This tile layer goes up to zoom level 16
+    //         maxZoom={20} // Allow zooming in further. Makes map blurry though
+    //     />,
+    //     <TileLayer
+    //         attribution='Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
+    //         url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
+    //         maxNativeZoom={16} // This tile layer goes up to zoom level 16
+    //         maxZoom={20} // Allow zooming in further. Makes map blurry though
+    //     />
+    // ];
 
     return (
         <DraggableWindow
             key={1}
             title={'Fish Map'}
-            initialX={120}
+            initialX={180}
             initialY={80}
             width={1500}
             onClose={() => console.log('close')}

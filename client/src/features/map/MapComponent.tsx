@@ -45,7 +45,7 @@ export default function MapComponent({ addingCaughtFish }: Props) {
             center={[48.0, -91.0]}
             zoom={10}
             scrollWheelZoom={true}
-            style={{ height: "500px", width: "90%" }}
+            style={{ height: "480px", width: "90%" }}
             className='mx-auto z-1'
         >
             <TileLayer
@@ -93,12 +93,29 @@ export default function MapComponent({ addingCaughtFish }: Props) {
                         position={[caughtFish.latitude, caughtFish.longitude]}
                         icon={fishIcon}
                     >
-                        <Popup>{caughtFish.fishSpecies.name}</Popup>
+                        <Popup>
+                            <div className="flex">
+                                <div className="flex-1">
+                                    {caughtFish.fishSpecies.name}
+                                </div>
+                                <div className="flex-1">
+                                    {caughtFish.caughtDate}
+                                </div>
+                            </div>
+
+                            <div>
+                                {caughtFish.fishingLure ? caughtFish.fishingLure.name : ''}
+                            </div>
+
+                            <div>
+                                {caughtFish.length} inches
+                            </div>
+                        </Popup>
                     </Marker>
                 ))}
             </MarkerClusterGroup>
 
-            {addingCaughtFish?<LocationMarker />:null}
+            {addingCaughtFish ? <LocationMarker /> : null}
         </MapContainer>
     )
 }
