@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-cluster'
 import LocationMarker from './LocationMarker';
-import { useCaughtFish } from '../../lib/hooks/useCaughtFish';
+import { useCaughtFishes } from '../../lib/hooks/useCaughtFish';
 import LoadingMapPlaceholder from '../../components/placeholders/LoadingMapPlaceholder';
 import CaughtFishPopup from '../caughtFish/CaughtFishPopup';
 import type { CaughtFishFilters } from '../../lib/types/caughtFishTypes';
@@ -13,7 +13,7 @@ type Props = {
 
 export default function MapComponent({ addingCaughtFish, filters }: Props) {
     
-    const { allCaughtFishes } = useCaughtFish(undefined, filters);
+    const { allCaughtFishes } = useCaughtFishes(filters);
 
     if (!allCaughtFishes) return <LoadingMapPlaceholder />;
 

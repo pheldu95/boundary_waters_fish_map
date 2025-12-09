@@ -3,12 +3,7 @@ import type { HydraCollection } from "../types";
 import axios from "axios";
 import type { CaughtFishFilters, CaughtFishRead, CaughtFishWrite } from "../types/caughtFishTypes";
 
-export const useCaughtFish = (
-    id?: string, //TO DO: make separate hooks. useCaughtFish and useCaughtFishes
-    filters?: CaughtFishFilters
-) => {
-    const queryClient = useQueryClient();
-
+export const useCaughtFishes = (filters?: CaughtFishFilters) => {
     const { data: caughtFishes, isLoading } = useQuery<CaughtFishRead[]>({
         queryKey: ['caughtFishes', 'paginated'],
         queryFn: async () => {
@@ -35,6 +30,44 @@ export const useCaughtFish = (
             return response.data.member;
         },
     });
+
+    return {
+        caughtFishes,
+        isLoading,
+        allCaughtFishes
+    };
+}
+export const useCaughtFish = (
+    id?: string
+) => {
+    const queryClient = useQueryClient();
+
+    // const { data: caughtFishes, isLoading } = useQuery<CaughtFishRead[]>({
+    //     queryKey: ['caughtFishes', 'paginated'],
+    //     queryFn: async () => {
+    //         const response = await axios.get<HydraCollection<CaughtFishRead>>('/api/caught_fishes');
+    //         return response.data.member;
+    //     },
+    // });
+
+    // const { data: allCaughtFishes } = useQuery<CaughtFishRead[]>({
+    //     queryKey: ['caughtFishes', 'all', filters],
+    //     queryFn: async () => {
+    //         const params: Record<string, string> = {
+    //             pagination: 'false'
+    //         };
+
+    //         if (filters?.fishSpeciesId) {
+    //             params['fishSpecies.id'] = filters.fishSpeciesId;
+    //         }
+
+    //         const queryString = new URLSearchParams(params).toString();
+    //         const response = await axios.get<HydraCollection<CaughtFishRead>>(
+    //             `/api/caught_fishes?${queryString}`
+    //         );
+    //         return response.data.member;
+    //     },
+    // });
 
     const { data: caughtFish, isLoading: isLoadingcaughtFish } = useQuery({
         queryKey: ['caughtFishes', id],
@@ -87,9 +120,9 @@ export const useCaughtFish = (
     });
 
     return {
-        caughtFishes,
-        allCaughtFishes,
-        isLoading,
+        // caughtFishes,
+        // allCaughtFishes,
+        // isLoading,
         deleteCaughtFish,
         updateCaughtFish,
         createCaughtFish,
