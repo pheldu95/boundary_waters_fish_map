@@ -38,7 +38,7 @@ export default function LoginForm() {
 
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
+
 
         setIsLoading(true);
         setErrors({});
@@ -56,23 +56,25 @@ export default function LoginForm() {
                     }
                 }
             );
-            
+
             console.log('Login successful:', response.data);
-            
+
+            const userIri = response?.headers['location'];
+
             // Handle successful login
             // if (response.data.token) {
             //     localStorage.setItem('authToken', response.data.token);
             //     // Redirect or update app state
             // }
-            
+
         } catch (error) {
             console.error('Login error:', error);
-            
+
             if (axios.isAxiosError(error)) {
                 if (error.response) {
                     // Server responded with error
                     const { status, data } = error.response;
-                    
+
                     if (status === 400) {
                         setErrors({ general: data.detail || 'Invalid request' });
                     } else if (status === 401) {
