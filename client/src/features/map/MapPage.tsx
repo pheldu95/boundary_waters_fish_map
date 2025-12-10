@@ -155,11 +155,14 @@ export default function MapPage() {
                             <p className="mr-2">Active Filters</p>
                             <i className="fa-solid fa-arrow-right-long fa-lg"></i>
                         </div>
-                        {filters.fishSpeciesIds ?
+                        {filters.fishSpeciesIds || filters.fishingLureIds ?
                             <MapActiveFiltersSection
                                 caughtFishFilters={filters}
                                 handleSpeciesChange={handleSpeciesChange}
                                 fishSpecies={fishSpecies}
+
+                                handleFishingLureChange={handleFishingLureChange}
+                                fishingLures={fishingLures}
                             />
                             :
                             <div className="flex items-center p-4 text-yellowishbone">
