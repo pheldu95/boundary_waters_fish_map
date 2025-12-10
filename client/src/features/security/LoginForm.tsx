@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, type ChangeEvent } from 'react'
+import React, { useState, type ChangeEvent, type FormEvent } from 'react'
 
 interface LoginFormData {
     email: string;
@@ -9,6 +9,7 @@ interface LoginFormData {
 interface LoginFormErrors {
     email?: string;
     password?: string;
+    general: string;
 }
 
 export default function LoginForm() {
@@ -35,32 +36,64 @@ export default function LoginForm() {
         }
     };
 
-    const onSubmit = async () => {
+    const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        
+
         setIsLoading(true);
+        setErrors({});
 
-        const response = await axios.post(
-            '/api/login',
-            {
-                email: formData.email,
-                password: formData.password
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
+        try {
+            const response = await axios.post(
+                '/api/login',
+                {
+                    email: formData.email,
+                    password: formData.password
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 }
+            );
+            
+            console.log('Login successful:', response.data);
+            
+            // Handle successful login
+            // if (response.data.token) {
+            //     localStorage.setItem('authToken', response.data.token);
+            //     // Redirect or update app state
+            // }
+            
+        } catch (error) {
+            console.error('Login error:', error);
+            
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    // Server responded with error
+                    const { status, data } = error.response;
+                    
+                    if (status === 400) {
+                        setErrors({ general: data.detail || 'Invalid request' });
+                    } else if (status === 401) {
+                        setErrors({ general: 'Invalid email or password' });
+                    } else {
+                        setErrors({ general: data.message || 'An error occurred during login' });
+                    }
+                } else if (error.request) {
+                    // Request made but no response
+                    setErrors({ general: 'Network error. Please check your connection.' });
+                } else {
+                    // Error in setting up the request
+                    setErrors({ general: 'An unexpected error occurred' });
+                }
+            } else {
+                setErrors({ general: 'An unexpected error occurred' });
             }
-        );
-        console.log(response.status);
-        if (response.status !== 200) {
-            const data = await response.data.json;
-            setErrors(data.error);
-            console.log(errors);
-            return;
+        } finally {
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
-    }
+    };
 
     return (
         <div>
