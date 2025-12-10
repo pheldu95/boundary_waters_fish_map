@@ -1,14 +1,16 @@
 import TableHeader from "../../components/tables/TableHeader/TableHeader";
 import TableData from "../../components/tables/TableData/TableData";
-import { useCaughtFish } from "../../lib/hooks/caughtFish/useCaughtFish";
 import TrashCanButton from "../../components/buttons/TrashCanButton";
 import ViewDetailsButton from "../../components/buttons/ViewDetailsButton";
 import LoadingTablePlaceholder from "../../components/placeholders/LoadingTablePlaceholder";
+import { useCaughtFishes } from "../../lib/hooks/caughtFish/useCaughtFishes";
+import { useCaughtFish } from "../../lib/hooks/caughtFish/useCaughtFish";
 
 export default function CaughtFishTable() {
     const headerText = ["Species", "Length (inches)", "Date Caught", "Lure Used", "Actions"];
 
-    const { caughtFishes, isLoading, deleteCaughtFish } = useCaughtFish();
+    const { caughtFishes, isLoading } = useCaughtFishes();
+    const { deleteCaughtFish } = useCaughtFish();
 
     if (!caughtFishes || isLoading) return <LoadingTablePlaceholder headerText={headerText}/>;
 

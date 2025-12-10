@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ['groups' => ['caughtFish:write']],
     paginationClientEnabled: true,
 )]
-#[ApiFilter(SearchFilter::class, properties: ['fishSpecies.id' => 'exact', 'fishingLure.name' => 'exact',])]
+#[ApiFilter(SearchFilter::class, properties: ['fishSpecies.id' => 'exact', 'fishingLure.id' => 'exact',])]
 #[ApiFilter(DateFilter::class, properties: ['caughtDate'])]
 class CaughtFish
 {

@@ -7,12 +7,15 @@ import DraggableWindow from '../../components/DraggableWindow';
 import type { CaughtFishFilters } from '../../lib/types/caughtFishTypes';
 import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 import MapActiveFiltersSection from './MapActiveFiltersSection';
+import { useFishingLure } from '../../lib/hooks/useFishingLure';
 
 export default function MapPage() {
     const { fishSpecies } = useFishSpecies();
+    const { fishingLures } = useFishingLure();
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
     const [filters, setFilters] = useState<CaughtFishFilters>({
         fishSpeciesIds: undefined,
+        fishingLureIds: undefined
     });
 
     const handleSpeciesChange = (speciesId: string) => {
@@ -23,6 +26,15 @@ export default function MapPage() {
                 : [...(prev.fishSpeciesIds || []), speciesId] //add if not selected
         }));
     };
+
+    const handleFishingLureChange = (fishingLureId: string) => {
+        setFilters(prev => ({
+            ...prev,
+            fishingLureIds: prev.fishingLureIds?.includes(fishingLureId)
+                ? prev.fishingLureIds.filter(id => id !== fishingLureId) //remove if already selected
+                : [...(prev.fishingLureIds || []), fishingLureId] //add if not selected
+        }));
+    }
 
     // const tileLayerOptions = [
     //     <TileLayer
@@ -96,7 +108,32 @@ export default function MapPage() {
                             </select>
                         }
 
-                        <MapButton text='Lure' />
+                        {fishingLures &&
+                            <select
+                                onChange={(e) => handleFishingLureChange(e.target.value)}
+                                value={''}
+                                className="w-38 group px-8 py-4 bg-foresty text-yellowishbone font-bold 
+                                        hover:bg-forestyhover transition-colors 
+                                        hover:translate-x-[2px] hover:translate-y-[2px] 
+                                        transition-all cursor-pointer
+                                        rounded-t-lg focus:outline-none
+                                        shadow-md"
+                            >
+                                <option className="bg-gray-50 text-black" value="">Lures</option>
+                                {fishingLures.map(lure => (
+                                    filters.fishingLureIds?.includes(lure.id.toString()) ? (
+                                        <option key={lure.id} value={lure.id} className="bg-foresty text-yellowishbone cursor-pointer">
+                                            ✓ {lure.name}
+                                        </option>
+                                    ) : (
+                                        <option key={lure.id} value={lure.id} className="bg-gray-50 text-black cursor-pointer">
+                                            {lure.name}
+                                        </option>
+                                    )
+                                ))}
+                            </select>
+                        }
+
                         <MapButton text='Length' />
                     </div>
 

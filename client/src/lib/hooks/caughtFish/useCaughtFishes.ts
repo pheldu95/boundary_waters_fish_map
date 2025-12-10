@@ -25,6 +25,11 @@ export const useCaughtFishes = (filters?: CaughtFishFilters) => {
                     params[`fishSpecies.id[${index}]`] = id; // adding the index lets me add multiple &fishSpecies.id= to the queryString
                 });
             }
+            if (filters?.fishingLureIds) {
+                filters.fishingLureIds.forEach((id, index) => {
+                    params[`fishingLure.id[${index}]`] = id; // adding the index lets me add multiple &fishSpecies.id= to the queryString
+                });
+            }
 
             const queryString = new URLSearchParams(params).toString();
             const response = await axios.get<HydraCollection<CaughtFishRead>>(
