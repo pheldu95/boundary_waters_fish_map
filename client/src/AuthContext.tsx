@@ -8,6 +8,7 @@ interface AuthState {
   user: User | null
   login: (email: string, password: string) => Promise<void>
   logout: () => void
+  isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthState | undefined>(undefined)
@@ -43,7 +44,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const login = async (email: string, password: string) => {
-    // Replace with your authentication logic
     const response = await axios.post(
       '/api/login',
       {
@@ -63,14 +63,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   }
 
-  const logout = () => {
-    setUser(null)
+  const logout = async () => {
+    await axios.post('/api/logout');
     setIsAuthenticated(false)
-    localStorage.removeItem('auth-token')
-  }
+    setUser(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, isLoading }}>
       {/* <div>
         {user?.email}
       </div> */}
@@ -79,6 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext)
   if (context === undefined) {
