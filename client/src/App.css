@@ -17,3 +17,7 @@
 .leaflet-popup-tip {
     background-color: rgb(255 244 158);
 }
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+    background-color: rgb(49 142 19);
+}

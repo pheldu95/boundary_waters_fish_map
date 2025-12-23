@@ -6,6 +6,7 @@ import DefaultInput from '../../components/form/DefaultInput';
 import { useAuth } from '../../AuthContext';
 import { useFishingLure } from '../../lib/hooks/useFishingLure';
 import SelectInput from '../../components/form/SelectInput';
+import { Bounce, toast } from 'react-toastify';
 
 type Props = {
     closeForm: () => void
@@ -34,26 +35,40 @@ export default function FishingLureForm({ closeForm }: Props) {
         }
 
         closeForm();
+
+        toast.success('New Lure Added!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2 w-full items-center bg-secondary'>
-            <DefaultInput
-                label='Name *'
-                propertyName='name'
-                register={register}
-                required={false}
-                className='w-[90%]'
-                type='text'
-            />
-            <SelectInput<FishingLureSchema>
-                label="Color"
-                propertyName='color'
-                register={register}
-                options={fishingLureColors}   
-                required={true} 
-            />
-            <DefaultButton text={'Submit'} type='submit' />
-        </form>
+        <>
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2 w-full items-center bg-secondary'>
+                <DefaultInput
+                    label='Name *'
+                    propertyName='name'
+                    register={register}
+                    required={false}
+                    className='w-[90%]'
+                    type='text'
+                />
+                <SelectInput<FishingLureSchema>
+                    label="Color"
+                    propertyName='color'
+                    register={register}
+                    options={fishingLureColors}
+                    required={true}
+                />
+                <DefaultButton text={'Submit'} type='submit' />
+            </form>
+        </>
     )
 }
