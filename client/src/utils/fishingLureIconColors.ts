@@ -1,13 +1,14 @@
 export const fishingLureIconColorMap: Record<string, string> = {
-    'Silver': 'text-gray-200',
-    'Chartreuse': 'text-yellow-300',
-    'Blue': 'text-blue-600',
-    'White': 'text-white',
-    'Green': 'text-green-200',
-    'Orange': 'text-orange-600',
-    'Gold': 'text-amber-600',
-    'Pink': 'text-pink-500',
-    'Black': 'text-black',
+    'silver': 'text-gray-200',
+    'chartreuse': 'text-yellow-300',
+    'blue': 'text-blue-600',
+    'white': 'text-white',
+    'green': 'text-green-200',
+    'orange': 'text-orange-600',
+    'gold': 'text-amber-600',
+    'pink': 'text-pink-500',
+    'black': 'text-black',
+    'red': 'text-red-500'
 };
 
 export const getFishingLureIconColor = (color: string): string => {

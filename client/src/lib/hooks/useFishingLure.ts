@@ -54,10 +54,19 @@ export const useFishingLure = (
         }
     });
 
+    const { data: fishingLureColors } = useQuery({
+        queryKey: ['fishingLureColors'],
+        queryFn: async () => {
+            const response = await axios.get('/api/fishing_lure_colors');
+            return response.data;
+        }
+    });
+
     return {
         fishingLures,
         isPending,
         myFishingLures,
-        createFishingLure
+        createFishingLure,
+        fishingLureColors
     }
 }

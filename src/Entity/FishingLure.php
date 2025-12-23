@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use App\Enum\FishingLureColor;
 use App\Repository\FishingLureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,8 +27,8 @@ class FishingLure
     #[Groups(['caughtFish:read'])]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $color = null;
+    #[ORM\Column(type: 'string', enumType: FishingLureColor::class)]
+    private ?FishingLureColor $color = null;
 
     #[ORM\ManyToOne(inversedBy: 'fishingLures')]
     private ?User $addedBy = null;
@@ -63,12 +64,12 @@ class FishingLure
         return $this;
     }
 
-    public function getColor(): ?string
+    public function getColor(): ?FishingLureColor
     {
         return $this->color;
     }
 
-    public function setColor(?string $color): static
+    public function setColor(?FishingLureColor $color): static
     {
         $this->color = $color;
 

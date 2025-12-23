@@ -5,6 +5,7 @@ import DefaultButton from '../../components/buttons/DefaultButton';
 import DefaultInput from '../../components/form/DefaultInput';
 import { useAuth } from '../../AuthContext';
 import { useFishingLure } from '../../lib/hooks/useFishingLure';
+import SelectInput from '../../components/form/SelectInput';
 
 type Props = {
     closeForm: () => void
@@ -12,7 +13,7 @@ type Props = {
 
 export default function FishingLureForm({ closeForm }: Props) {
     const { user } = useAuth();
-    const { createFishingLure } = useFishingLure();
+    const { createFishingLure, fishingLureColors } = useFishingLure();
     const { register, reset, handleSubmit, formState: { errors } } = useForm<FishingLureSchema>({
         mode: 'onTouched',
         resolver: zodResolver(fishingLureSchema),
@@ -45,13 +46,12 @@ export default function FishingLureForm({ closeForm }: Props) {
                 className='w-[90%]'
                 type='text'
             />
-            <DefaultInput
-                label='Color *'
+            <SelectInput<FishingLureSchema>
+                label="Color"
                 propertyName='color'
                 register={register}
-                required={false}
-                className='w-[90%]'
-                type='text'
+                options={fishingLureColors}   
+                required={true} 
             />
             <DefaultButton text={'Submit'} type='submit' />
         </form>

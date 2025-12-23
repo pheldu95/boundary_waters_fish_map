@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\FishingLure;
 use App\Entity\User;
+use App\Enum\FishingLureColor;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -15,16 +16,16 @@ class FishingLureFixtures extends Fixture
         $adminUser = $userRepository->findOneBy(['email' => 'phelps.duncan@gmail.com']);
 
         $fishingLures = [
-            ['Rapala Shad Rap', 'Red'],
-            ['Mepps Aglia Spinner', 'Silver'],
-            ['Berkley Gulp! Minnow', 'Chartreuse'],
-            ['Strike King Red Eye Shad', 'Blue'],
-            ['Johnson Silver Minnow', 'White'],
-            ['Booyah Flex', 'Green'],
-            ['Heddon Lucky 13', 'Black'],
-            ['Rebel Pop-R', 'Orange'],
-            ['Panther Martin Classic', 'Gold'],
-            ['Rapala Original Floater', 'Pink']
+            ['Rapala Shad Rap', FishingLureColor::RED],
+            ['Mepps Aglia Spinner', FishingLureColor::SILVER],
+            ['Berkley Gulp! Minnow', FishingLureColor::CHARTREUSE],
+            ['Strike King Red Eye Shad', FishingLureColor::BLUE],
+            ['Johnson Silver Minnow', FishingLureColor::WHITE],
+            ['Booyah Flex', FishingLureColor::GREEN],
+            ['Heddon Lucky 13', FishingLureColor::BLACK],
+            ['Rebel Pop-R', FishingLureColor::ORANGE],
+            ['Panther Martin Classic', FishingLureColor::GOLD],
+            ['Rapala Original Floater', FishingLureColor::PINK]
         ];
 
         foreach ($fishingLures as [$name, $color]) {
