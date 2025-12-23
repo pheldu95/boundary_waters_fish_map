@@ -54,6 +54,9 @@ export const useCaughtFish = (
             await queryClient.invalidateQueries({
                 queryKey: ['caughtFishes']
             })
+            await queryClient.invalidateQueries({
+                queryKey: ['allCaughtFishes']
+            })
         }
     });
 
