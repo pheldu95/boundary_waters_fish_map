@@ -9,6 +9,8 @@ import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 import MapActiveFiltersSection from './MapActiveFiltersSection';
 import { useFishingLure } from '../../lib/hooks/useFishingLure';
 import { useAuth } from '../../AuthContext';
+import FishingLureForm from '../fishingLures/FishingLureForm';
+import FormModal from '../../components/modals/FormModal';
 
 export default function MapPage() {
     const { user } = useAuth();
@@ -16,6 +18,7 @@ export default function MapPage() {
     const { fishSpecies } = useFishSpecies();
     const { myFishingLures } = useFishingLure(undefined, user?.id);
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
+    const [addingFishingLure, setAddingFishingLure] = useState(false);
     const [filters, setFilters] = useState<CaughtFishFilters>({
         fishSpeciesIds: undefined,
         fishingLureIds: undefined
@@ -70,6 +73,16 @@ export default function MapPage() {
             constrainToViewport={false}
         >
             <div className='h-full w-[100%] bg-primary mx-auto pb-8 border-r border-l border-gray-500 font-bold shadow-2xl'>
+
+                {/* temporary */}
+                {addingFishingLure &&
+                    <FormModal
+                        children={<FishingLureForm closeForm={() => setAddingFishingLure(false)} />}
+                        title='Add a New Lure'
+                        closeForm={() => setAddingFishingLure(false)}
+                    />
+                }
+
                 <div className='flex w-[90%] mx-auto justify-between'>
                     <div className='flex mt-4'>
                         {addingCaughtFish ?
@@ -77,7 +90,13 @@ export default function MapPage() {
                             :
                             <MapButton onClickProps={() => setAddingCaughtFish(true)} text='Add a Caught Fish' />
                         }
-                        <MapButton text='Add a Lure' />
+
+                        {addingFishingLure ?
+                            <MapButton onClickProps={() => setAddingFishingLure(false)} text='Cancel' color={'bg-negative'} hoverColor={'bg-negativehover'} />
+                            :
+                            <MapButton onClickProps={() => setAddingFishingLure(true)} text='Add a Lure' />
+                        }
+
                         <div className="flex items-center p-4 text-secondary">
                             <i className="fa-solid fa-arrow-left-long fa-lg"></i>
                             <p className="ml-2">Actions</p>
