@@ -4,17 +4,21 @@ import type { CaughtFishFilters, CaughtFishRead } from "../../types/caughtFishTy
 import axios from "axios";
 
 
-export const useCaughtFishes = (filters?: CaughtFishFilters) => {
+export const useCaughtFishes = (
+    filters?: CaughtFishFilters,
+    userId?: number
+) => {
     const { data: caughtFishes, isLoading } = useQuery<CaughtFishRead[]>({
-        queryKey: ['caughtFishes', 'paginated'],
+        queryKey: ['caughtFishes', 'paginated', userId],
         queryFn: async () => {
             const response = await axios.get<HydraCollection<CaughtFishRead>>('/api/caught_fishes');
             return response.data.member;
         },
+        enabled: !!userId
     });
 
     const { data: allCaughtFishes } = useQuery<CaughtFishRead[]>({
-        queryKey: ['caughtFishes', 'all', filters],
+        queryKey: ['caughtFishes', 'all', filters, userId],
         queryFn: async () => {
             const params: Record<string, string> = {
                 pagination: 'false'
@@ -31,12 +35,18 @@ export const useCaughtFishes = (filters?: CaughtFishFilters) => {
                 });
             }
 
+            if(!userId) {
+                throw new Error('user id is required to fetch caught fish'); 
+            }
+            params[`caughtBy.id`] = userId.toString();
+
             const queryString = new URLSearchParams(params).toString();
             const response = await axios.get<HydraCollection<CaughtFishRead>>(
                 `/api/caught_fishes?${queryString}`
             );
             return response.data.member;
         },
+        enabled: !!userId
     });
 
     return {

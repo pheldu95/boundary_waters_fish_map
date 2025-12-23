@@ -119,7 +119,7 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
 
       <input type="hidden" {...register('latitude', { required: true })} value={latitude} />
       <input type="hidden" {...register('longitude', { required: true })} value={longitude} />
-      <input type="hidden" {...register('caughtBy', { required: true })} value='/api/users/67' /> {/* Temporary until auth is implemented */}
+      <input type="hidden" {...register('caughtBy', { required: true })} value='/api/users/100' /> {/* Temporary until auth is implemented */}
 
       <DefaultButton text={'Submit'} type='submit' />
     </form>

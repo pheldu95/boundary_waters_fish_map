@@ -5,15 +5,6 @@ type FishSpecies = {
   caughtFish: string[]
 };
 
-type FishingLure = {
-  id: number
-  name: string
-  color: string
-  addedBy: string
-  createdAt: string
-  caughtFish: string[]
-};
-
 type User = {
   id: number
   email: string

@@ -5,6 +5,7 @@ import { useCaughtFishes } from '../../lib/hooks/caughtFish/useCaughtFishes';
 import LoadingMapPlaceholder from '../../components/placeholders/LoadingMapPlaceholder';
 import CaughtFishPopup from '../caughtFish/CaughtFishPopup';
 import type { CaughtFishFilters } from '../../lib/types/caughtFishTypes';
+import { useAuth } from '../../AuthContext';
 
 type Props = {
     addingCaughtFish: boolean;
@@ -12,8 +13,8 @@ type Props = {
 }
 
 export default function MapComponent({ addingCaughtFish, filters }: Props) {
-    
-    const { allCaughtFishes } = useCaughtFishes(filters);
+    const { user } = useAuth();
+    const { allCaughtFishes } = useCaughtFishes(filters, user?.id);
 
     if (!allCaughtFishes) return <LoadingMapPlaceholder />;
 
@@ -29,7 +30,7 @@ export default function MapComponent({ addingCaughtFish, filters }: Props) {
                 attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
                 url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
                 maxNativeZoom={17} // This tile layer goes up to zoom level 16
-                maxZoom={20} // Allow zooming in further. Makes map blurry though
+                maxZoom={30} // Allow zooming in further. Makes map blurry though
             />
             <MarkerClusterGroup
                 chunkedLoading

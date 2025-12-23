@@ -26,6 +26,7 @@ type CaughtFishWrite = {
 type CaughtFishFilters = {
   fishSpeciesIds?: string[];
   fishingLureIds?: string[];
+  caughtById?: number //maybe need to make this a string?
 }
 
 export type { CaughtFishRead, CaughtFishWrite, CaughtFishFilters };

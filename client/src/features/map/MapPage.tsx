@@ -8,10 +8,13 @@ import type { CaughtFishFilters } from '../../lib/types/caughtFishTypes';
 import { useFishSpecies } from '../../lib/hooks/useFishSpecies';
 import MapActiveFiltersSection from './MapActiveFiltersSection';
 import { useFishingLure } from '../../lib/hooks/useFishingLure';
+import { useAuth } from '../../AuthContext';
 
 export default function MapPage() {
+    const { user } = useAuth();
+
     const { fishSpecies } = useFishSpecies();
-    const { fishingLures } = useFishingLure();
+    const { myFishingLures } = useFishingLure(undefined, user?.id);
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
     const [filters, setFilters] = useState<CaughtFishFilters>({
         fishSpeciesIds: undefined,
@@ -113,7 +116,7 @@ export default function MapPage() {
                             </select>
                         }
 
-                        {fishingLures &&
+                        {myFishingLures &&
                             <select
                                 onChange={(e) => handleFishingLureChange(e.target.value)}
                                 value={''}
@@ -125,7 +128,7 @@ export default function MapPage() {
                                         shadow-md"
                             >
                                 <option className="bg-gray-50 text-black" value="">Lures</option>
-                                {fishingLures.map(lure => (
+                                {myFishingLures.map(lure => (
                                     filters.fishingLureIds?.includes(lure.id.toString()) ? (
                                         <option key={lure.id} value={lure.id} className="bg-foresty text-secondary cursor-pointer">
                                             ✓ {lure.name}
@@ -167,7 +170,7 @@ export default function MapPage() {
                                 fishSpecies={fishSpecies}
 
                                 handleFishingLureChange={handleFishingLureChange}
-                                fishingLures={fishingLures}
+                                fishingLures={myFishingLures}
                             />
                             :
                             <div className="flex items-center p-4 text-secondary">
