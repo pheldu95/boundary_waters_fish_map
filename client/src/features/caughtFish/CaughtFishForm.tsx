@@ -13,6 +13,7 @@ import SelectInput from '../../components/form/SelectInput';
 import TextAreaInput from '../../components/form/TexaAreaInput';
 import DefaultInput from '../../components/form/DefaultInput';
 import { useAuth } from '../../AuthContext';
+import { Bounce, toast } from 'react-toastify';
 
 type Props = {
   latitude: number;
@@ -73,6 +74,18 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
     }
 
     markerRef?.current?.closePopup();
+
+    toast.success('New Fish Added!', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
   }
 
   return (
