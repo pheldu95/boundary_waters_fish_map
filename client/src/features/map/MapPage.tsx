@@ -19,6 +19,7 @@ export default function MapPage() {
     const { myFishingLures } = useFishingLure(undefined, user?.id);
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
     const [addingFishingLure, setAddingFishingLure] = useState(false);
+    const [selectingLength, setSelectingLength] = useState(false);
     const [filters, setFilters] = useState<CaughtFishFilters>({
         fishSpeciesIds: undefined,
         fishingLureIds: undefined
@@ -162,7 +163,11 @@ export default function MapPage() {
                             </select>
                         }
 
-                        <MapButton text='Length' />
+                        {selectingLength ?
+                            <MapButton onClickProps={() => setSelectingLength(false)} text='Cancel' color={'bg-negative'} hoverColor={'bg-negativehover'} />
+                            :
+                            <MapButton text='Length' onClickProps={() => setSelectingLength(true)} />
+                        }
                     </div>
 
                 </div>
