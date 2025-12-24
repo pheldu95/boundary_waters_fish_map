@@ -12,7 +12,7 @@ export default function SideBar({ isOpen, setIsOpen }: Props) {
             {/*  'translate-x-0' makes siebar go to its normal position '-translate-x-full' makes sidebar go off the screen */}
             <div className={`
                 fixed top-0 left-0 h-full 
-                w-64 bg-primary z-40 
+                w-64 bg-primary z-60 
                 transition-transform duration-300 ease-in-out 
                 hover:shadow-none hover:translate-x-[2px] 
                 ${isOpen ? 'translate-x-0 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]' : '-translate-x-full'

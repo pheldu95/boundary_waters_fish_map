@@ -19,6 +19,7 @@ export interface DraggableWindowProps {
   minHeight?: number;
   constrainToViewport?: boolean;
   zIndex?: number;
+  navbarHeight?: number;
 }
 
 export const DraggableWindow: React.FC<DraggableWindowProps> = ({
@@ -32,7 +33,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
   height,
   minHeight,
   constrainToViewport = true,
-  zIndex = 1000
+  zIndex = 55,
+  navbarHeight = 64,
 }) => {
   const [position, setPosition] = useState<Position>({ x: initialX, y: initialY });
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -48,7 +50,10 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
       let newX = e.clientX - dragStart.x;
       let newY = e.clientY - dragStart.y;
       
-      // Constrain to viewport if enabled
+      // Always constrain Y position to navbar, regardless of constrainToViewport
+      newY = Math.max(navbarHeight, newY);
+      
+      // Additional viewport constraints if enabled
       if (constrainToViewport && windowRef.current) {
         const windowWidth = windowRef.current.offsetWidth;
         const windowHeight = windowRef.current.offsetHeight;
@@ -56,7 +61,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
         const maxY = window.innerHeight - windowHeight;
         
         newX = Math.max(0, Math.min(newX, maxX));
-        newY = Math.max(0, Math.min(newY, maxY));
+        newY = Math.min(newY, maxY); // Still need to check max Y
       }
       
       setPosition({ x: newX, y: newY });
@@ -79,7 +84,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
       document.removeEventListener('mouseup', handleMouseUp);
       document.body.style.userSelect = '';
     };
-  }, [isDragging, dragStart, constrainToViewport]);
+  }, [isDragging, dragStart, constrainToViewport, navbarHeight]);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
     // Prevent drag if clicking on interactive elements

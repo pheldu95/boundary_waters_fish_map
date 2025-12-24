@@ -71,6 +71,7 @@ export default function MapPage() {
             width={90}
             onClose={() => console.log('close')}
             constrainToViewport={false}
+            navbarHeight={64}
         >
             <div className='h-full w-[100%] bg-primary mx-auto pb-8 border-r border-l border-gray-500 font-bold shadow-2xl'>
 
