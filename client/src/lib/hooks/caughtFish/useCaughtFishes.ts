@@ -35,6 +35,10 @@ export const useCaughtFishes = (
                 });
             }
 
+            if (filters?.length) {
+                params['length[gte]'] = filters.length.toString();
+            }
+
             if(!userId) {
                 throw new Error('user id is required to fetch caught fish'); 
             }

@@ -10,6 +10,8 @@ type Props = {
     fishSpecies?: FishSpecies[];
     handleFishingLureChange: (speciesId: string) => void;
     fishingLures?: FishingLure[];
+    length?: number;
+    removeLengthFilter: () => void;
 }
 
 export default function MapActiveFiltersSection({
@@ -17,7 +19,9 @@ export default function MapActiveFiltersSection({
     handleSpeciesChange,
     fishSpecies,
     handleFishingLureChange,
-    fishingLures
+    fishingLures,
+    length,
+    removeLengthFilter
 }: Props) {
     if (!fishSpecies) return <LoadingSpinner />
 
@@ -28,7 +32,7 @@ export default function MapActiveFiltersSection({
     });
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {/* fish species */}
             <div className="text-secondary">
                 {caughtFishFilters.fishSpeciesIds && <p className="bg-foresty">Species</p>}
@@ -80,6 +84,31 @@ export default function MapActiveFiltersSection({
                         })
                     }
                 </div>
+            </div>
+
+            {/* length greater or equal to filter */}
+            <div className="text-secondary">
+                {length && length > 0 &&
+                    <button
+                        className="
+                group px-8 py-4 bg-foresty text-secondary font-bold 
+                hover:bg-negativehover transition-colors 
+                hover:translate-x-[2px] hover:translate-y-[2px] 
+                transition-all cursor-pointer
+                rounded-b-lg
+                shadow-md
+            "
+                        onClick={removeLengthFilter}
+                        type={'button'}
+                    >
+                        <span className="group-hover:hidden inline-block transition-all duration-300">
+                            Length &ge; {length}
+                        </span>
+                        <span className="hidden group-hover:inline-block transition-all duration-300">
+                            Remove filter
+                        </span>
+                    </button>
+                }
             </div>
         </div>
     )

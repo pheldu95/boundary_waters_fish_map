@@ -11,6 +11,7 @@ import { useFishingLure } from '../../lib/hooks/useFishingLure';
 import { useAuth } from '../../AuthContext';
 import FishingLureForm from '../fishingLures/FishingLureForm';
 import FormModal from '../../components/modals/FormModal';
+import LengthFilter from './LengthFilter';
 
 export default function MapPage() {
     const { user } = useAuth();
@@ -19,9 +20,11 @@ export default function MapPage() {
     const { myFishingLures } = useFishingLure(undefined, user?.id);
     const [addingCaughtFish, setAddingCaughtFish] = useState(false);
     const [addingFishingLure, setAddingFishingLure] = useState(false);
+    const [selectingLength, setSelectingLength] = useState(false);
     const [filters, setFilters] = useState<CaughtFishFilters>({
         fishSpeciesIds: undefined,
-        fishingLureIds: undefined
+        fishingLureIds: undefined,
+        length: undefined
     });
 
     const handleSpeciesChange = (speciesId: string) => {
@@ -39,6 +42,20 @@ export default function MapPage() {
             fishingLureIds: prev.fishingLureIds?.includes(fishingLureId)
                 ? prev.fishingLureIds.filter(id => id !== fishingLureId) //remove if already selected
                 : [...(prev.fishingLureIds || []), fishingLureId] //add if not selected
+        }));
+    }
+
+    const handleLengthFilterSubmit = (length: number) => {
+        setFilters(prev => ({
+            ...prev,
+            length: length
+        }));
+        setSelectingLength(false);
+    }
+    const removeLengthFilter = () => {
+        setFilters(prev => ({
+            ...prev,
+            length: undefined
         }));
     }
 
@@ -162,7 +179,14 @@ export default function MapPage() {
                             </select>
                         }
 
-                        <MapButton text='Length' />
+                        {selectingLength ?
+                            <div>
+                                <MapButton onClickProps={() => setSelectingLength(false)} text='Cancel' color={'bg-negative'} hoverColor={'bg-negativehover'} />
+                                <FormModal title='Length &ge;' children={<LengthFilter handleLengthFilterSubmit={handleLengthFilterSubmit} />} closeForm={() => setSelectingLength(false)} />
+                            </div>
+                            :
+                            <MapButton text='Length' onClickProps={() => setSelectingLength(true)} />
+                        }
                     </div>
 
                 </div>
@@ -183,7 +207,7 @@ export default function MapPage() {
                             <p className="mr-2">Active Filters</p>
                             <i className="fa-solid fa-arrow-right-long fa-lg"></i>
                         </div>
-                        {filters.fishSpeciesIds || filters.fishingLureIds ?
+                        {filters.fishSpeciesIds || filters.fishingLureIds || filters.length ?
                             <MapActiveFiltersSection
                                 caughtFishFilters={filters}
                                 handleSpeciesChange={handleSpeciesChange}
@@ -191,6 +215,9 @@ export default function MapPage() {
 
                                 handleFishingLureChange={handleFishingLureChange}
                                 fishingLures={myFishingLures}
+
+                                removeLengthFilter={removeLengthFilter}
+                                length={filters.length}
                             />
                             :
                             <div className="flex items-center p-4 text-secondary">

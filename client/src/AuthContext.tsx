@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import type { User } from './lib/types'
+import LoadingSpinner from './components/placeholders/LoadingSpinner'
 
 
 interface AuthState {
@@ -38,7 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        Loading...
+        <LoadingSpinner />
       </div>
     )
   }

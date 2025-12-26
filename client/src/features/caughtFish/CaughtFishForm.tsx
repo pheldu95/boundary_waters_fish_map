@@ -14,6 +14,7 @@ import TextAreaInput from '../../components/form/TexaAreaInput';
 import DefaultInput from '../../components/form/DefaultInput';
 import { useAuth } from '../../AuthContext';
 import { Bounce, toast } from 'react-toastify';
+import LoadingSpinner from '../../components/placeholders/LoadingSpinner';
 
 type Props = {
   latitude: number;
@@ -50,7 +51,7 @@ export default function CaughtFishForm({ latitude, longitude, markerRef }: Props
   }, [caughtFish, reset]);
 
   if (!fishSpecies || !fishingLures) {
-    return <div>Loading...</div>; // or some loading component
+    return <LoadingSpinner />;
   }
   //options to use for our select component
   const fishSpeciesOptions = fishSpecies.map(species => ({
